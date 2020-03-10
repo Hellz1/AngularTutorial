@@ -33,9 +33,9 @@
       formControlName="email">
   </label>
   <br>
-  <button 
+  <button class="btn btn-primary"
     (click)="botonSinAccion()" 
-    type="button">Dame clic</button>
+    type="button">Dame clic <i class="fa fa-anchor"></i> </button>
   <br>
   <button type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
 
@@ -44,7 +44,21 @@
 <div *ngIf="datosLogin.length > 0; else sinLogin">
 
     <ul>
-      <li *ngFor="let item of datosLogin">{{item.data}} - {{item.nid}}</li>
+      <li *ngFor="let item of datosLogin; let i = index">
+        Indice de iteracion: {{i}}
+        <br>
+        {{item.data}} 
+          <br>
+        {{item.nid}}
+        <br>
+        <ng-container *ngFor="let escuela of item.array; index as i">
+          Indice de iteracion escuela: {{i}}
+          <br>
+          Data de array: {{escuela.data1}}
+          <br>
+        </ng-container>
+        
+      </li>
     </ul>
 
 </div>

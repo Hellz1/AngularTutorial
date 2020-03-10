@@ -8,6 +8,7 @@ import { ComunicacionComponent } from './components/comunicacion/comunicacion.co
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { GeneralComponent } from './shared/general/general.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { LoginComponent } from './components/login/login.component';
     FormularioComponent,
     ComunicacionComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    GeneralComponent
   ],
   imports: [
     BrowserModule,
