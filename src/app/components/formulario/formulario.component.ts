@@ -8,14 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class FormularioComponent implements OnInit {
 
    //VARIABLES GLOBALES
-   title = 'practica';
+   title;
    valorString: string = "binding";
    objectoAny: { valor1: string, valor2: number};
    obj;
-   
+
+   a: number = 0;
+   b: number = 0;
+   hoy: Date = new Date();
+
   constructor() { }
 
   ngOnInit() {
+    this.title = 'practica';
   }
 
  
@@ -33,13 +38,14 @@ export class FormularioComponent implements OnInit {
     local = 33;
   }
 
-  sumar(){
-    let a = 5,b = 2
+  sumar(a: number,b: number,dia: Date){
     let c: number;
     try{
       c = Math.sqrt(c);
-
-      throw new Error("mensaje de error");
+      let resultado = a + b ; 
+      console.log("Suma: a + b ", resultado);
+      console.log("Esto se imprimio el día", dia);
+      //throw new Error("mensaje de error");
     } 
     catch(error){
       console.error('Aqui va el mensaje de error', error);

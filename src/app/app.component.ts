@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  hoy: Date = new Date();
+
+  recibirRespuesta(event){
+    alert(event);
+  }
 }

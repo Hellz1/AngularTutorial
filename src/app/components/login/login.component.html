@@ -1,0 +1,54 @@
+<form (ngSubmit)="enviarDatos()" [formGroup]="loginForm">
+  <label>
+    <span>Usuario</span>
+    <input 
+      type="text"
+      placeholder="Ingresa tu usuario"
+      formControlName="usuario">
+      <div *ngIf="loginForm.get('usuario').hasError('required') && 
+                  loginForm.get('usuario').touched">
+        Usuario requerido
+      </div>
+      <br>
+      Tocado: {{loginForm.get('usuario').touched}}
+      <br>
+      Sucio: {{loginForm.get('usuario').dirty | json}}
+      <br>
+      Usuario: {{fua.usuario.valid | json}}
+  </label>
+  <br>
+  <label>
+    <span>Contraseña</span>
+    <input 
+      type="text"
+      placeholder="Ingresa tu contraseña"
+      formControlName="password">
+  </label>
+  <br>
+  <label>
+    <span>Correo</span>
+    <input 
+      type="text"
+      placeholder="Ingresa tu correo"
+      formControlName="email">
+  </label>
+  <br>
+  <button 
+    (click)="botonSinAccion()" 
+    type="button">Dame clic</button>
+  <br>
+  <button type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
+
+</form>
+
+<div *ngIf="datosLogin.length > 0; else sinLogin">
+
+    <ul>
+      <li *ngFor="let item of datosLogin">{{item.data}} - {{item.nid}}</li>
+    </ul>
+
+</div>
+
+<ng-template #sinLogin>
+  Primero inicia sesión
+</ng-template>
