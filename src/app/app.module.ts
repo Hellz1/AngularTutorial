@@ -10,8 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { GeneralComponent } from './shared/general/general.component';
 
+import { HttpClientModule} from "@angular/common/http";
+import { LoginService } from './shared/services/login.service';
+
 @NgModule({
-  declarations: [
+  declarations: [ //Aqui generalmente se registran todos los archivos tipo component
     AppComponent,
     FormularioComponent,
     ComunicacionComponent,
@@ -19,13 +22,16 @@ import { GeneralComponent } from './shared/general/general.component';
     LoginComponent,
     GeneralComponent
   ],
-  imports: [
+  imports: [ //Aqui generalmente se registran todos los archivos tipo module
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule // -> Este registra el formbuilder al modulo
   ],
-  providers: [],
+  providers: [ //Aqui generalmente se registran todos los archivos de tipo service
+    LoginService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

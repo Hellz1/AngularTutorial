@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GeneralComponent } from 'src/app/shared/general/general.component';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { LoginDTO } from 'src/app/shared/models/login-dto';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent extends GeneralComponent implements OnInit {
 
   datosLogin: any[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private loginService: LoginService) {
     super();
   }
 
@@ -42,70 +45,33 @@ export class LoginComponent extends GeneralComponent implements OnInit {
 
   //this.loginForm.controls["email"].value
   enviarDatos() {
+
     let usuario: string = this.fua.usuario.value;
     let password: string = this.fua.password.value;
-    if (usuario == "fua" && password == "1") {
-      alert("Login correcto el dia: " + this.fecha);
-      this.datosLogin = [
-        {
-          data: 'hola', nid: 1, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' },
-            { data1: 'hola3' }
-          ]
-        },
-        {
-          data: 'hola1', nid: 2, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hol2', nid: 5, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hola3', nid: 41, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hol4', nid: 3, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hol5', nid: 6, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hola6', nid: 11, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hola7', nid: 12, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-        {
-          data: 'hola8', nid: 13, array: [
-            { data1: 'hola1' },
-            { data1: 'hola2' }
-          ]
-        },
-      ];
-    }
-    else
-      alert("revisa los datos");
+    let loginDTO = new LoginDTO(usuario,password);
+    
+    let response = this.loginService.loginAPI(loginDTO);
+
+    //FORMA 1: Subscribe
+    response.subscribe(
+      success => {
+        console.log(success);
+      },
+      error => {
+        console.log("Error de login: " + error);
+      }
+    );
+
+    //FORMA 2: Promesas
+
+
+
+    // if (this.loginService.login(usuario,password)) {
+    //   alert("Login correcto el dia: " + this.fecha);
+    //   this.datosLogin = this.loginService.obtenerDatos();
+    // }
+    // else
+    //   alert("revisa los datos");
 
   }
 
