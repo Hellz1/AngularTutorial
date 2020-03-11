@@ -1,6 +1,9 @@
 Hoy es el dia: {{global}}
 
-<button (click)="responder()">Responde al papá</button>
+<div *ngIf="sesionInfo">
+  Bienvenido usuario {{sesionInfo.roleCve | json}}
+</div>
+<button (click)="suscribirSesion()">Responde al papá</button>
 <ul>
   <li><a [routerLink]="['/formulario']">Formulario</a></li>
   <li><a [routerLink]="['/comunicacion']">Comunicacion</a></li>

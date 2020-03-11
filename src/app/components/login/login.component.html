@@ -41,6 +41,20 @@
 
 </form>
 
+<div *ngIf="userLogin">
+  {{userLogin | json}}
+</div>
+
+<div *ngIf="userLogin2">
+  {{userLogin2 | json}}
+</div>
+
+<div *ngIf="userLogin3 && catalogoDatos">
+  {{userLogin3 | json}}
+  <br>
+  {{catalogoDatos | json}}
+</div>
+
 <div *ngIf="datosLogin.length > 0; else sinLogin">
 
     <ul>

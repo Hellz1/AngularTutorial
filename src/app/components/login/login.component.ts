@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GeneralComponent } from 'src/app/shared/general/general.component';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { LoginDTO } from 'src/app/shared/models/login-dto';
+import { UsuarioLoginDTO } from 'src/app/shared/models/usuario-login-dto';
+import { forkJoin } from 'rxjs';
+import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +19,17 @@ export class LoginComponent extends GeneralComponent implements OnInit {
 
   datosLogin: any[] = [];
 
+  userLogin: UsuarioLoginDTO = null;
+  userLogin2: UsuarioLoginDTO = null;
+  userLogin3: UsuarioLoginDTO = null;
+
+  catalogoDatos = null;
+
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService) {
-    super();
+              private loginService: LoginService,
+              public autenticacionService: AutenticacionService,
+              private router: Router) {
+    super(autenticacionService);
   }
 
   ngOnInit() {
@@ -51,11 +63,15 @@ export class LoginComponent extends GeneralComponent implements OnInit {
     let loginDTO = new LoginDTO(usuario,password);
     
     let response = this.loginService.loginAPI(loginDTO);
+    let catalogoCiclo = this.loginService.obtenerCatalogoCicloEscolar();
 
     //FORMA 1: Subscribe
     response.subscribe(
       success => {
-        console.log(success);
+        this.userLogin = success;
+        this.autenticacionService.guardarSesion(this.userLogin);
+      
+        this.loginService.navegarURL('/formulario');
       },
       error => {
         console.log("Error de login: " + error);
@@ -63,7 +79,26 @@ export class LoginComponent extends GeneralComponent implements OnInit {
     );
 
     //FORMA 2: Promesas
+    // let promise = response.toPromise();
+    // promise
+    // .then(
+    //   success => {
+    //     this.userLogin2 = success;
+    //   },
+    //   error => {
+    //     console.log("Error de login: "+ error );
+    //   }
+    // )
+    // .catch(() => { });
 
+    //FORMA 3: Paralelo si las las peticiones son independientes
+    // forkJoin([response,catalogoCiclo])
+    //   .subscribe(
+    //     resultado => {
+    //       this.userLogin3 = resultado[0];
+    //       this.catalogoDatos = resultado[1];
+    //     }
+    //   );
 
 
     // if (this.loginService.login(usuario,password)) {

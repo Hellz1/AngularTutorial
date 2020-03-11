@@ -12,6 +12,8 @@ import { GeneralComponent } from './shared/general/general.component';
 
 import { HttpClientModule} from "@angular/common/http";
 import { LoginService } from './shared/services/login.service';
+import { GeneralService } from './shared/services/general.service';
+import { AutenticacionService } from './shared/services/autenticacion.service';
 
 @NgModule({
   declarations: [ //Aqui generalmente se registran todos los archivos tipo component
@@ -31,6 +33,8 @@ import { LoginService } from './shared/services/login.service';
   ],
   providers: [ //Aqui generalmente se registran todos los archivos de tipo service
     LoginService,
+    GeneralService,
+    AutenticacionService
   ],
   bootstrap: [AppComponent]
 })

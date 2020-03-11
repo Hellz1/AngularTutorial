@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { LoginDTO } from '../models/login-dto';
 import { Observable } from 'rxjs';
 import { UsuarioLoginDTO } from '../models/usuario-login-dto';
+import { GeneralService } from './general.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService{
+export class LoginService extends GeneralService{
 
-  constructor(private _http: HttpClient) { }
+  constructor(public _http: HttpClient, public router: Router) { 
+    super(_http,router);
+  }
 
   public login(usuario: string, password: string): Boolean{
     //TODO: Quitar este hardcode y conectar a API
@@ -24,7 +28,7 @@ export class LoginService{
   // public string function(param1,param2){ }
   // public function(param1,param2): string { }
   public loginAPI(loginDto: LoginDTO): Observable<UsuarioLoginDTO>{
-    return this._http.post<UsuarioLoginDTO>("",loginDto);
+    return this._http.post<UsuarioLoginDTO>("http://193.168.2.32:4043/api/supervision/login",loginDto);
   }
 
   public obtenerDatos(){
