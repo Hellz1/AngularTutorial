@@ -6,6 +6,16 @@ Valor 2: <input type="number" [(ngModel)]="b" /> // [()] Banana in a box
 <br>
 Resultado: {{ (a + b) }}
 <br>
-<button (click)="test();sumar(a,b,hoy.getDate())">Dame clic</button>
-
+<!--class="clase A padding-custom" -->
+<button [ngClass]="{'clase-A padding-custom': (a+b < 10), 'clase-B': (a+b >= 10)}" (click)="test()">Dame clic</button>
+<button class="btn">Boton</button>
+<br>
+<ng-select [items]="catalogoCiclo"
+            bindLabel="sdescripcion"
+            bindValue="nIdCicloEscolar"
+            [(ngModel)]="cicloEscolarSeleccionado"
+            (change)="cicloSeleccionado()">
+</ng-select>
+<br>
+Ciclo escolar seleccionado: {{cicloEscolarSeleccionado}}
 

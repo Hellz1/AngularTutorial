@@ -7,6 +7,9 @@ import { UsuarioLoginDTO } from 'src/app/shared/models/usuario-login-dto';
 import { forkJoin } from 'rxjs';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
 import { Router } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Constantes } from 'src/app/shared/constantes';
+import { Utils } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +31,8 @@ export class LoginComponent extends GeneralComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private loginService: LoginService,
               public autenticacionService: AutenticacionService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrManager) {
     super(autenticacionService);
   }
 
@@ -36,6 +40,7 @@ export class LoginComponent extends GeneralComponent implements OnInit {
     this.buildForm();
     this.obtenerFecha();
     console.log(this.loginForm);
+    this.toastr.infoToastr("Bienvenido al login","Titulo");
   }
 
   private buildForm() {
@@ -68,13 +73,22 @@ export class LoginComponent extends GeneralComponent implements OnInit {
     //FORMA 1: Subscribe
     response.subscribe(
       success => {
-        this.userLogin = success;
-        this.autenticacionService.guardarSesion(this.userLogin);
+        if(!Utils.isEmpty(success)){
+          this.userLogin = success;
+          this.autenticacionService.guardarSesion(this.userLogin);
       
-        this.loginService.navegarURL('/formulario');
+          this.toastr.successToastr(Constantes.mensajeExito);
+        
+
+          this.loginService.navegarURL('/formulario');
+
+          Utils.isEmpty(success) ? true : false;
+        }
+        
       },
       error => {
         console.log("Error de login: " + error);
+        this.toastr.warningToastr(Constantes.mensajeAviso);
       }
     );
 

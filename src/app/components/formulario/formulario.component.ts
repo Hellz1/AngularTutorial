@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GeneralService } from 'src/app/shared/services/general.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-formulario',
@@ -13,11 +15,14 @@ export class FormularioComponent implements OnInit {
    objectoAny: { valor1: string, valor2: number};
    obj;
 
+   catalogoCiclo: any = null;
+   cicloEscolarSeleccionado: number = null;
+
    a: number = 0;
    b: number = 0;
    hoy: Date = new Date();
 
-  constructor() { }
+  constructor(private generalService: GeneralService, private toastr: ToastrManager) { }
 
   ngOnInit() {
     this.title = 'practica';
@@ -36,12 +41,23 @@ export class FormularioComponent implements OnInit {
 
     local = "holá";
     local = 33;
+
+    this.generalService.obtenerCatalogoCicloEscolar()
+      .subscribe(
+        success => {
+          this.catalogoCiclo = success;
+        },
+        error => {
+          console.log(error);
+        }
+      )
   }
 
   sumar(a: number,b: number,dia: Date){
     let c: number;
     try{
       c = Math.sqrt(c);
+      c = 0;
       let resultado = a + b ; 
       console.log("Suma: a + b ", resultado);
       console.log("Esto se imprimio el día", dia);
@@ -58,6 +74,10 @@ export class FormularioComponent implements OnInit {
 
     console.log("Resultado de X", x);
 
+  }
+
+  cicloSeleccionado(){
+    this.toastr.warningToastr("Cambiaste de item en el select de ciclo");
   }
 
 }

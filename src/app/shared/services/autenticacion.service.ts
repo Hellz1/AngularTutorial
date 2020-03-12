@@ -25,5 +25,10 @@ export class AutenticacionService extends GeneralService{
 
    guardarSesion(sesion: UsuarioLoginDTO){
      this.sesion.next(sesion);
+     sessionStorage.setItem('sesion',JSON.stringify(sesion));
+   }
+
+   obtenerUsuario(): UsuarioLoginDTO{
+     return JSON.parse(sessionStorage.getItem('sesion'));
    }
 }

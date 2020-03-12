@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UsuarioLoginDTO } from '../models/usuario-login-dto';
 import { GeneralService } from './general.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class LoginService extends GeneralService{
   // public string function(param1,param2){ }
   // public function(param1,param2): string { }
   public loginAPI(loginDto: LoginDTO): Observable<UsuarioLoginDTO>{
-    return this._http.post<UsuarioLoginDTO>("http://193.168.2.32:4043/api/supervision/login",loginDto);
+    return this._http.post<UsuarioLoginDTO>(environment.url + "/supervision/login",loginDto);
   }
 
   public obtenerDatos(){

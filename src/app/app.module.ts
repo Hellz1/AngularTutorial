@@ -10,10 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { GeneralComponent } from './shared/general/general.component';
 
-import { HttpClientModule} from "@angular/common/http";
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { LoginService } from './shared/services/login.service';
 import { GeneralService } from './shared/services/general.service';
 import { AutenticacionService } from './shared/services/autenticacion.service';
+import { AuthGuard } from './shared/guards/auth-guard.service';
+import { InterceptorService } from './shared/interceptor/interceptor.service';
 
 @NgModule({
   declarations: [ //Aqui generalmente se registran todos los archivos tipo component
@@ -29,12 +35,17 @@ import { AutenticacionService } from './shared/services/autenticacion.service';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule // -> Este registra el formbuilder al modulo
+    NgSelectModule,
+    ReactiveFormsModule, // -> Este registra el formbuilder al modulo
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [ //Aqui generalmente se registran todos los archivos de tipo service
     LoginService,
     GeneralService,
-    AutenticacionService
+    AutenticacionService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

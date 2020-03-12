@@ -26,7 +26,8 @@ export class HeaderComponent extends GeneralComponent implements OnInit {
   }
 
   responder(){
-    this.salida.emit('Esta es tu fecha ' + this.global);
+    //this.salida.emit('Esta es tu fecha ' + this.global);
+    alert(this.autenticacionService.obtenerUsuario());
   }
 
  

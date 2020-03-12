@@ -3,7 +3,7 @@ Hoy es el dia: {{global}}
 <div *ngIf="sesionInfo">
   Bienvenido usuario {{sesionInfo.roleCve | json}}
 </div>
-<button (click)="suscribirSesion()">Responde al papá</button>
+<button class="padding-custom" (click)="responder()">Responde al papá</button>
 <ul>
   <li><a [routerLink]="['/formulario']">Formulario</a></li>
   <li><a [routerLink]="['/comunicacion']">Comunicacion</a></li>
